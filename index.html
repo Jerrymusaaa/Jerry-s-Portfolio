@@ -15,7 +15,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            background: #f5f5f5;
+            background: #0a0e27;
         }
 
         .container {
@@ -26,14 +26,15 @@
 
         /* Header/Navigation */
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: rgba(10, 14, 39, 0.95);
             color: white;
             padding: 1rem 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 20px rgba(79, 172, 254, 0.3);
+            backdrop-filter: blur(10px);
         }
 
         nav {
@@ -45,6 +46,10 @@
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .nav-links {
@@ -56,32 +61,73 @@
         .nav-links a {
             color: white;
             text-decoration: none;
-            transition: opacity 0.3s;
+            transition: all 0.3s;
+            position: relative;
         }
 
         .nav-links a:hover {
-            opacity: 0.8;
+            color: #4facfe;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(rgba(10, 14, 39, 0.85), rgba(10, 14, 39, 0.85)), 
+                        url('Aesthetic.background.jpg') center/cover no-repeat;
             color: white;
             padding: 150px 0 100px;
             text-align: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(79, 172, 254, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 1rem;
             animation: fadeInUp 1s ease;
+            background: linear-gradient(135deg, #fff 0%, #4facfe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero p {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             margin-bottom: 2rem;
             opacity: 0.95;
             animation: fadeInUp 1s ease 0.2s backwards;
+            color: #e0e0e0;
         }
 
         .hero-tags {
@@ -94,10 +140,18 @@
         }
 
         .tag {
-            background: rgba(255,255,255,0.2);
+            background: rgba(79, 172, 254, 0.2);
             padding: 0.5rem 1.5rem;
             border-radius: 25px;
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(79, 172, 254, 0.3);
+            transition: all 0.3s;
+        }
+
+        .tag:hover {
+            background: rgba(79, 172, 254, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
         }
 
         /* Section Styles */
@@ -109,25 +163,147 @@
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 3rem;
-            color: #667eea;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         /* About Section */
         .about {
-            background: white;
+            background: #0f1428;
+        }
+
+        .about-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .profile-photo {
+            flex-shrink: 0;
+        }
+
+        .profile-photo img {
+            width: 300px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 3px solid rgba(79, 172, 254, 0.5);
+            box-shadow: 0 10px 40px rgba(79, 172, 254, 0.3);
         }
 
         .about-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
+            flex: 1;
             font-size: 1.1rem;
             line-height: 1.8;
+            color: #e0e0e0;
+        }
+
+        .about-content p {
+            margin-bottom: 1rem;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            background: #0a0e27;
+        }
+
+        .slideshow-container {
+            max-width: 900px;
+            position: relative;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(79, 172, 254, 0.3);
+        }
+
+        .slide {
+            display: none;
+            position: relative;
+        }
+
+        .slide.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+        }
+
+        .slide-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(10, 14, 39, 0.95), transparent);
+            color: white;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .slide-caption h3 {
+            color: #4facfe;
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .slide-caption p {
+            color: #e0e0e0;
+        }
+
+        .slide-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .slide-btn {
+            background: rgba(79, 172, 254, 0.2);
+            color: white;
+            border: 1px solid rgba(79, 172, 254, 0.5);
+            padding: 0.8rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .slide-btn:hover {
+            background: rgba(79, 172, 254, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .slide-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(79, 172, 254, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .indicator.active {
+            background: #4facfe;
+            transform: scale(1.3);
         }
 
         /* Experience Section */
         .experience {
-            background: #f9f9f9;
+            background: #0f1428;
         }
 
         .experience-grid {
@@ -137,27 +313,29 @@
         }
 
         .experience-card {
-            background: white;
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.05) 0%, rgba(0, 242, 254, 0.05) 100%);
             padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 15px;
+            border: 1px solid rgba(79, 172, 254, 0.2);
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
         }
 
         .experience-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
+            border-color: rgba(79, 172, 254, 0.5);
         }
 
         .experience-card h3 {
-            color: #667eea;
+            color: #4facfe;
             margin-bottom: 0.5rem;
             font-size: 1.4rem;
         }
 
         .experience-card .company {
             font-weight: bold;
-            color: #764ba2;
+            color: #00f2fe;
             margin-bottom: 0.5rem;
         }
 
@@ -168,12 +346,12 @@
         }
 
         .experience-card p {
-            color: #555;
+            color: #c0c0c0;
         }
 
         /* Skills Section */
         .skills {
-            background: white;
+            background: #0a0e27;
         }
 
         .skills-container {
@@ -185,16 +363,24 @@
         }
 
         .skill-category {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.1) 100%);
             color: white;
             padding: 2rem;
-            border-radius: 10px;
+            border-radius: 15px;
             text-align: center;
+            border: 1px solid rgba(79, 172, 254, 0.3);
+            transition: all 0.3s;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
         }
 
         .skill-category h3 {
             margin-bottom: 1rem;
             font-size: 1.3rem;
+            color: #4facfe;
         }
 
         .skill-category ul {
@@ -203,7 +389,8 @@
 
         .skill-category li {
             padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
+            border-bottom: 1px solid rgba(79, 172, 254, 0.2);
+            color: #e0e0e0;
         }
 
         .skill-category li:last-child {
@@ -212,7 +399,7 @@
 
         /* Education Section */
         .education {
-            background: #f9f9f9;
+            background: #0f1428;
         }
 
         .education-grid {
@@ -222,20 +409,31 @@
         }
 
         .education-card {
-            background: white;
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.05) 0%, rgba(0, 242, 254, 0.05) 100%);
             padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(79, 172, 254, 0.2);
+            transition: all 0.3s;
+        }
+
+        .education-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
         }
 
         .education-card h3 {
-            color: #667eea;
+            color: #4facfe;
             margin-bottom: 0.5rem;
         }
 
         .education-card .degree {
             font-weight: bold;
             margin-bottom: 0.5rem;
+            color: #e0e0e0;
+        }
+
+        .education-card p {
+            color: #c0c0c0;
         }
 
         .education-card .year {
@@ -245,9 +443,10 @@
 
         /* Contact Section */
         .contact {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.1) 100%);
             color: white;
             text-align: center;
+            border-top: 1px solid rgba(79, 172, 254, 0.3);
         }
 
         .contact-info {
@@ -263,25 +462,41 @@
             flex-direction: column;
             align-items: center;
             gap: 0.5rem;
+            padding: 1.5rem;
+            background: rgba(79, 172, 254, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(79, 172, 254, 0.2);
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            background: rgba(79, 172, 254, 0.1);
+            box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);
+        }
+
+        .contact-item span:first-child {
+            font-size: 1.2rem;
         }
 
         .contact-item a {
-            color: white;
+            color: #4facfe;
             text-decoration: none;
             font-size: 1.1rem;
-            transition: opacity 0.3s;
+            transition: all 0.3s;
         }
 
         .contact-item a:hover {
-            opacity: 0.8;
+            color: #00f2fe;
         }
 
         /* Footer */
         footer {
-            background: #333;
+            background: #0a0e27;
             color: white;
             text-align: center;
             padding: 2rem 0;
+            border-top: 1px solid rgba(79, 172, 254, 0.3);
         }
 
         /* Animations */
@@ -293,6 +508,15 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
             }
         }
 
@@ -313,7 +537,7 @@
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: #667eea;
+                background: rgba(10, 14, 39, 0.98);
                 flex-direction: column;
                 padding: 1rem;
                 gap: 1rem;
@@ -328,7 +552,7 @@
             }
 
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
             .hero p {
@@ -337,6 +561,24 @@
 
             .section-title {
                 font-size: 2rem;
+            }
+
+            .about-wrapper {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .profile-photo img {
+                width: 250px;
+                height: 330px;
+            }
+
+            .slide img {
+                height: 400px;
+            }
+
+            .contact-info {
+                gap: 1.5rem;
             }
         }
     </style>
@@ -349,6 +591,7 @@
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#about">About</a></li>
+                <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#education">Education</a></li>
@@ -359,7 +602,7 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="container">
+        <div class="container hero-content">
             <h1>Yonaura Jerry Musa</h1>
             <p>Where Tech Meets Purpose, and Learning Never Stops</p>
             <div class="hero-tags">
@@ -375,9 +618,194 @@
     <section class="about" id="about">
         <div class="container">
             <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <p>I'm a curious mind with a toolkit that spans tech, education, and finance. As a Computer Networks Analyst, I've kept systems connected and secure. As a Technical Robotics Mentor and STEM Educator, I've helped young innovators build robots, chase big ideas, and compete on global stages. And as a Financial Advisor, I've guided people toward smarter money decisions.</p>
-                <p style="margin-top: 1rem;">I live at the intersection of innovation and impact—where tech meets purpose, and learning never stops. From training middle school students to IB Diploma candidates in robotics, to securing networks and training AI models, I bring a unique blend of technical expertise and educational passion to everything I do.</p>
+            <div class="about-wrapper">
+                <div class="profile-photo">
+                    <img src="profile.jpg" alt="Jerry Musa">
+                </div>
+                <div class="about-content">
+                    <p>I'm a curious mind with a toolkit that spans tech, education, and finance. In my work with computer networks, I've kept systems connected and secure. Through technical robotics mentorship and STEM education, I've helped young innovators build robots, chase big ideas, and compete on global stages. My experience in financial advisory has enabled me to guide people toward smarter money decisions.</p>
+                    <p>I live at the intersection of innovation and impact—where tech meets purpose, and learning never stops. From training middle school students to IB Diploma candidates in robotics, to securing networks and training AI models, I bring a unique blend of technical expertise and educational passion to everything I do.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <h2 class="section-title">Projects & Outreach</h2>
+            <div class="slideshow-container">
+                <div class="slide active">
+                    <img src="gallery1.jpg" alt="Team Kenya at Street Food Festival">
+                    <div class="slide-caption">
+                        <h3>Team Kenya - FIRST Global Robotics</h3>
+                        <p>Our team representing Kenya at the Nairobi Street Food Festival, showcasing our passion for robotics and STEM education.</p>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <img src="gallery2.jpg" alt="Team with robots at outreach booth">
+                    <div class="slide-caption">
+                        <h3>Robotics Outreach & Education</h3>
+                        <p>The entire Team Kenya with our competition robots, engaging with the community and promoting robotics as a sport.</p>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <img src="gallery3.jpg" alt="FIRST Global Robotics booth">
+                    <div class="slide-caption">
+                        <h3>FIRST Global Robotics Challenge</h3>
+                        <p>Our outreach booth at Jamhuri Showgrounds, educating the public and fundraising for robotics programs in Kenya.</p>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <img src="gallery4.jpg" alt="Competition robots and equipment">
+                    <div class="slide-caption">
+                        <h3>Competition Robots & Equipment</h3>
+                        <p>Our FIRST Global competition robots and toolkit, representing months of hard work, innovation, and teamwork.</p>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <img src="gallery5.jpg" alt="Robot close-up at festival">
+                    <div class="slide-caption">
+                        <h3>Innovation in Action</h3>
+                        <p>Close-up of our competition robot in action during the outreach event, demonstrating the power of STEM education.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-indicators">
+                <span class="indicator active" onclick="goToSlide(0)"></span>
+                <span class="indicator" onclick="goToSlide(1)"></span>
+                <span class="indicator" onclick="goToSlide(2)"></span>
+                <span class="indicator" onclick="goToSlide(3)"></span>
+                <span class="indicator" onclick="goToSlide(4)"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mentorship Journey Section -->
+    <section class="gallery" id="mentorship" style="background: #0f1428;">
+        <div class="container">
+            <h2 class="section-title">My Mentorship Journey</h2>
+            <p style="text-align: center; color: #e0e0e0; margin-bottom: 3rem; font-size: 1.1rem;">From Team Captain to Technical Mentor: Working with talented students from 2023 to 2025</p>
+            <div class="slideshow-container">
+                <div class="slide active">
+                    <img src="mentorship1.jpg" alt="Hands-on robot training">
+                    <div class="slide-caption">
+                        <h3>Hands-On Training</h3>
+                        <p>Working directly with students on robot assembly and troubleshooting, teaching the fundamentals of robotics engineering.</p>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <img src="mentorship2.jpg" alt="Student with competition robot">
+                    <div class="slide-caption">
+                        <h3>Building Confidence</h3>
+                        <p>Empowering students to take ownership of their robots and develop the skills needed for international competition.</p>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <img src="mentorship3.jpg" alt="Teaching robotics class">
+                    <div class="slide-caption">
+                        <h3>Classroom Leadership</h3>
+                        <p>Leading educational sessions on robotics concepts, programming, and competition strategy preparation.</p>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <img src="mentorship4.jpg" alt="Programming session">
+                    <div class="slide-caption">
+                        <h3>Technical Skills Development</h3>
+                        <p>Teaching programming, data analysis, and technical documentation essential for competitive robotics.</p>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <img src="mentorship5.jpg" alt="Robot testing and optimization">
+                    <div class="slide-caption">
+                        <h3>Testing & Optimization</h3>
+                        <p>Guiding students through the iterative process of testing, debugging, and optimizing their robot designs.</p>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <img src="mentorship6.jpg" alt="Team photo in classroom">
+                    <div class="slide-caption">
+                        <h3>Building Team Spirit</h3>
+                        <p>Fostering collaboration and teamwork among students from diverse backgrounds, united by their passion for robotics.</p>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <img src="mentorship7.jpg" alt="Outdoor training session">
+                    <div class="slide-caption">
+                        <h3>Community Engagement</h3>
+                        <p>Bringing robotics education beyond the classroom through community outreach and hands-on demonstrations.</p>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <img src="mentorship8.jpg" alt="Team at airport Singapore">
+                    <div class="slide-caption">
+                        <h3>Singapore 2023 - Team Captain</h3>
+                        <p>Leading Team Kenya to the FIRST Global Challenge in Singapore, where we won 3rd place for Most Creative Robot.</p>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <img src="mentorship9.jpg" alt="Team Kenya at FIRST Global">
+                    <div class="slide-caption">
+                        <h3>Representing Kenya</h3>
+                        <p>Proudly representing Kenya on the global stage, inspiring the next generation of African innovators.</p>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <img src="mentorship10.jpg" alt="Team Kenya at competition venue">
+                    <div class="slide-caption">
+                        <h3>Competition Ready</h3>
+                        <p>Team Kenya prepared and ready for competition, the culmination of months of training, dedication, and hard work.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-indicators">
+                <span class="indicator active" onclick="goToSlide2(0)"></span>
+                <span class="indicator" onclick="goToSlide2(1)"></span>
+                <span class="indicator" onclick="goToSlide2(2)"></span>
+                <span class="indicator" onclick="goToSlide2(3)"></span>
+                <span class="indicator" onclick="goToSlide2(4)"></span>
+                <span class="indicator" onclick="goToSlide2(5)"></span>
+                <span class="indicator" onclick="goToSlide2(6)"></span>
+                <span class="indicator" onclick="goToSlide2(7)"></span>
+                <span class="indicator" onclick="goToSlide2(8)"></span>
+                <span class="indicator" onclick="goToSlide2(9)"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Media & Recognition Section -->
+    <section class="gallery" id="media" style="background: #0a0e27;">
+        <div class="container">
+            <h2 class="section-title">Media & Recognition</h2>
+            <p style="text-align: center; color: #e0e0e0; margin-bottom: 3rem; font-size: 1.1rem;">Featured in national media and FIRST Global's official campaign</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 2rem; max-width: 1100px; margin: 0 auto;">
+                <div style="background: linear-gradient(135deg, rgba(79, 172, 254, 0.05) 0%, rgba(0, 242, 254, 0.05) 100%); padding: 2rem; border-radius: 20px; border: 1px solid rgba(79, 172, 254, 0.3); transition: all 0.3s;">
+                    <img src="media1.jpg" alt="National newspaper feature 2023" style="width: 100%; border-radius: 15px; margin-bottom: 1.5rem; box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);">
+                    <h3 style="color: #4facfe; margin-bottom: 0.5rem; font-size: 1.3rem;">National Newspaper Feature</h3>
+                    <p style="color: #e0e0e0; line-height: 1.6;">Featured in national media coverage for representing Kenya at the FIRST Global Robotics Challenge 2023, highlighting our team's innovative climate solutions and international success.</p>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, rgba(79, 172, 254, 0.05) 0%, rgba(0, 242, 254, 0.05) 100%); padding: 2rem; border-radius: 20px; border: 1px solid rgba(79, 172, 254, 0.3); transition: all 0.3s;">
+                    <img src="media2.jpg" alt="FIRST Global official website feature" style="width: 100%; border-radius: 15px; margin-bottom: 1.5rem; box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);">
+                    <h3 style="color: #4facfe; margin-bottom: 0.5rem; font-size: 1.3rem;">FIRST Global Official Campaign</h3>
+                    <p style="color: #e0e0e0; line-height: 1.6;">Featured on FIRST Global's official website as part of the "Robotics Is A Sport" campaign, showcasing Team Kenya's dedication to promoting robotics education worldwide.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -516,7 +944,7 @@
     <section class="contact" id="contact">
         <div class="container">
             <h2 class="section-title" style="color: white;">Get In Touch</h2>
-            <p>I'm always open to discussing new opportunities, collaborations, or just connecting with fellow innovators.</p>
+            <p style="color: #e0e0e0;">I'm always open to discussing new opportunities, collaborations, or just connecting with fellow innovators.</p>
             <div class="contact-info">
                 <div class="contact-item">
                     <span>📧 Email</span>
@@ -536,7 +964,7 @@
                 </div>
                 <div class="contact-item">
                     <span>📍 Location</span>
-                    <span>Nairobi, Kenya</span>
+                    <span style="color: #e0e0e0;">Nairobi, Kenya</span>
                 </div>
             </div>
         </div>
@@ -550,10 +978,103 @@
     </footer>
 
     <script>
+        let currentSlide = 0;
+        let currentSlide2 = 0;
+        let slideInterval;
+        let slideInterval2;
+
         function toggleMenu() {
             const navLinks = document.getElementById('navLinks');
             navLinks.classList.toggle('active');
         }
+
+        // First slideshow functions
+        function showSlide(n) {
+            const slides = document.querySelectorAll('#gallery .slide');
+            const indicators = document.querySelectorAll('#gallery .indicator');
+            
+            if (n >= slides.length) currentSlide = 0;
+            if (n < 0) currentSlide = slides.length - 1;
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+            
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+        }
+
+        function changeSlide(n) {
+            currentSlide += n;
+            showSlide(currentSlide);
+            resetSlideTimer();
+        }
+
+        function goToSlide(n) {
+            currentSlide = n;
+            showSlide(currentSlide);
+            resetSlideTimer();
+        }
+
+        function autoSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+
+        function startSlideTimer() {
+            slideInterval = setInterval(autoSlide, 5000);
+        }
+
+        function resetSlideTimer() {
+            clearInterval(slideInterval);
+            startSlideTimer();
+        }
+
+        // Second slideshow functions
+        function showSlide2(n) {
+            const slides = document.querySelectorAll('#mentorship .slide');
+            const indicators = document.querySelectorAll('#mentorship .indicator');
+            
+            if (n >= slides.length) currentSlide2 = 0;
+            if (n < 0) currentSlide2 = slides.length - 1;
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+            
+            slides[currentSlide2].classList.add('active');
+            indicators[currentSlide2].classList.add('active');
+        }
+
+        function changeSlide2(n) {
+            currentSlide2 += n;
+            showSlide2(currentSlide2);
+            resetSlideTimer2();
+        }
+
+        function goToSlide2(n) {
+            currentSlide2 = n;
+            showSlide2(currentSlide2);
+            resetSlideTimer2();
+        }
+
+        function autoSlide2() {
+            currentSlide2++;
+            showSlide2(currentSlide2);
+        }
+
+        function startSlideTimer2() {
+            slideInterval2 = setInterval(autoSlide2, 5000);
+        }
+
+        function resetSlideTimer2() {
+            clearInterval(slideInterval2);
+            startSlideTimer2();
+        }
+
+        // Start both automatic slideshows when page loads
+        window.addEventListener('load', function() {
+            startSlideTimer();
+            startSlideTimer2();
+        });
 
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -565,7 +1086,6 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
-                    // Close mobile menu if open
                     document.getElementById('navLinks').classList.remove('active');
                 }
             });
@@ -575,11 +1095,9 @@
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
             if (window.scrollY > 50) {
-                header.style.background = 'linear-gradient(135deg, #5568d3 0%, #6a3f8f 100%)';
+                header.style.background = 'rgba(10, 14, 39, 0.98)';
             } else {
-                header.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                header.style.background = 'rgba(10, 14, 39, 0.95)';
             }
         });
     </script>
-</body>
-</html>
