@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jerry Musa - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header/Navigation */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
+
+        .tag {
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #667eea;
+        }
+
+        /* About Section */
+        .about {
+            background: white;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Experience Section */
+        .experience {
+            background: #f9f9f9;
+        }
+
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .experience-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .experience-card h3 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+        }
+
+        .experience-card .company {
+            font-weight: bold;
+            color: #764ba2;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-card .date {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .experience-card p {
+            color: #555;
+        }
+
+        /* Skills Section */
+        .skills {
+            background: white;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .skill-category {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .skill-category h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .skill-category li:last-child {
+            border-bottom: none;
+        }
+
+        /* Education Section */
+        .education {
+            background: #f9f9f9;
+        }
+
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .education-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .education-card h3 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-card .degree {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-card .year {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: opacity 0.3s;
+        }
+
+        .contact-item a:hover {
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #667eea;
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">Jerry Musa</div>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Yonaura Jerry Musa</h1>
+            <p>Where Tech Meets Purpose, and Learning Never Stops</p>
+            <div class="hero-tags">
+                <span class="tag">Robotics Mentor</span>
+                <span class="tag">STEM Educator</span>
+                <span class="tag">Cybersecurity Analyst</span>
+                <span class="tag">Financial Advisor</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <p>I'm a curious mind with a toolkit that spans tech, education, and finance. As a Computer Networks Analyst, I've kept systems connected and secure. As a Technical Robotics Mentor and STEM Educator, I've helped young innovators build robots, chase big ideas, and compete on global stages. And as a Financial Advisor, I've guided people toward smarter money decisions.</p>
+                <p style="margin-top: 1rem;">I live at the intersection of innovation and impact—where tech meets purpose, and learning never stops. From training middle school students to IB Diploma candidates in robotics, to securing networks and training AI models, I bring a unique blend of technical expertise and educational passion to everything I do.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience" id="experience">
+        <div class="container">
+            <h2 class="section-title">Experience</h2>
+            <div class="experience-grid">
+                <div class="experience-card">
+                    <h3>Technical Mentor</h3>
+                    <div class="company">FIRST Global (IFCA)</div>
+                    <div class="date">June 2024 - Present</div>
+                    <p>Training teams for FIRST Global Robotics Challenge. Led a team to Greece in 2024 and currently preparing a team for Panama 2025. Nominated for Global Outstanding Mentor in 2024.</p>
+                </div>
+
+                <div class="experience-card">
+                    <h3>Team Captain</h3>
+                    <div class="company">FIRST Global (IFCA)</div>
+                    <div class="date">June 2023 - October 2023</div>
+                    <p>Represented Kenya at the FIRST Global Robotics Challenge in Singapore 2023, achieving third place for Most Creative Robot.</p>
+                </div>
+
+                <div class="experience-card">
+                    <h3>Financial Advisor</h3>
+                    <div class="company">Britam</div>
+                    <div class="date">April 2025 - August 2025</div>
+                    <p>Provided financial advisory services and insurance solutions, helping clients make informed decisions about their financial future.</p>
+                </div>
+
+                <div class="experience-card">
+                    <h3>Computer Network Analyst</h3>
+                    <div class="company">Konvergenz Network Solutions</div>
+                    <div class="date">May 2024 - September 2024</div>
+                    <p>Completed comprehensive internship/training under Teedu Academy, focusing on network security and systems management.</p>
+                </div>
+
+                <div class="experience-card">
+                    <h3>Robotics Trainer</h3>
+                    <div class="company">Independent</div>
+                    <div class="date">Ongoing</div>
+                    <p>Training students from middle school through IB Diploma level in robotics, programming, and STEM concepts. Preparing students for competitions and real-world applications.</p>
+                </div>
+
+                <div class="experience-card">
+                    <h3>AI Model Trainer</h3>
+                    <div class="company">Various Projects</div>
+                    <div class="date">Ongoing</div>
+                    <p>Training and fine-tuning AI models, contributing to machine learning projects and staying at the forefront of AI technology.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills" id="skills">
+        <div class="container">
+            <h2 class="section-title">Skills & Expertise</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>Technical Skills</h3>
+                    <ul>
+                        <li>VMware & Virtualization</li>
+                        <li>Desktop Virtualization</li>
+                        <li>OS Virtualization</li>
+                        <li>Network Security</li>
+                        <li>Statistics & Programming</li>
+                        <li>AI Model Training</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Education & Mentoring</h3>
+                    <ul>
+                        <li>STEM Education</li>
+                        <li>Robotics Training</li>
+                        <li>Curriculum Development</li>
+                        <li>Competition Preparation</li>
+                        <li>Technical Mentorship</li>
+                        <li>Student Assessment</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Professional Services</h3>
+                    <ul>
+                        <li>Financial Advisory</li>
+                        <li>Insurance Services</li>
+                        <li>ITIL Framework</li>
+                        <li>Service Management</li>
+                        <li>Client Relations</li>
+                        <li>Project Management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education" id="education">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <div class="education-grid">
+                <div class="education-card">
+                    <h3>Kenyatta University</h3>
+                    <div class="degree">Bachelor of Applied Science - BASc</div>
+                    <p>Statistics and Programming</p>
+                    <div class="year">September 2023 - December 2027</div>
+                </div>
+
+                <div class="education-card">
+                    <h3>Teedu Academy</h3>
+                    <div class="degree">Computer Networks and Security</div>
+                    <p>Computer Systems Networking and Telecommunications</p>
+                    <div class="year">May 2024 - September 2024</div>
+                </div>
+
+                <div class="education-card">
+                    <h3>Alison</h3>
+                    <div class="degree">ITIL Certification</div>
+                    <p>Software Service Management</p>
+                    <div class="year">June 2024</div>
+                </div>
+
+                <div class="education-card">
+                    <h3>Kapsabet High School</h3>
+                    <div class="degree">High School Diploma</div>
+                    <p>Secondary Education</p>
+                    <div class="year">2019 - 2022</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Get In Touch</h2>
+            <p>I'm always open to discussing new opportunities, collaborations, or just connecting with fellow innovators.</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📧 Email</span>
+                    <a href="mailto:yo.jerrymusa2018@gmail.com">yo.jerrymusa2018@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <span>📱 Phone</span>
+                    <a href="tel:+254115211842">+254 115 211 842</a>
+                </div>
+                <div class="contact-item">
+                    <span>💼 LinkedIn</span>
+                    <a href="https://www.linkedin.com/in/jerry-musa-10a134263" target="_blank">Connect with me</a>
+                </div>
+                <div class="contact-item">
+                    <span>📸 Instagram</span>
+                    <a href="https://instagram.com/itsjerryinnit" target="_blank">@itsjerryinnit</a>
+                </div>
+                <div class="contact-item">
+                    <span>📍 Location</span>
+                    <span>Nairobi, Kenya</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Jerry Musa. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.getElementById('navLinks').classList.remove('active');
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'linear-gradient(135deg, #5568d3 0%, #6a3f8f 100%)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            }
+        });
+    </script>
+</body>
+</html>
