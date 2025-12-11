@@ -11,17 +11,63 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-primary: #0a0e27;
+            --bg-secondary: #0f1428;
+            --text-primary: #e0e0e0;
+            --text-secondary: #c0c0c0;
+            --accent-primary: #4facfe;
+            --accent-secondary: #00f2fe;
+            --card-bg: rgba(79, 172, 254, 0.05);
+            --border-color: rgba(79, 172, 254, 0.2);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f5f7fa;
+            --bg-secondary: #ffffff;
+            --text-primary: #2c3e50;
+            --text-secondary: #34495e;
+            --accent-primary: #3498db;
+            --accent-secondary: #2980b9;
+            --card-bg: rgba(52, 152, 219, 0.05);
+            --border-color: rgba(52, 152, 219, 0.2);
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: #0a0e27;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 999;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
         }
 
         /* Header/Navigation */
@@ -35,6 +81,13 @@
             z-index: 1000;
             box-shadow: 0 2px 20px rgba(79, 172, 254, 0.3);
             backdrop-filter: blur(10px);
+            transition: background 0.3s ease;
+        }
+
+        [data-theme="light"] header {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--text-primary);
+            box-shadow: 0 2px 20px rgba(52, 152, 219, 0.2);
         }
 
         nav {
@@ -65,6 +118,10 @@
             position: relative;
         }
 
+        [data-theme="light"] .nav-links a {
+            color: var(--text-primary);
+        }
+
         .nav-links a:hover {
             color: #4facfe;
         }
@@ -82,6 +139,19 @@
 
         .nav-links a:hover::after {
             width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        [data-theme="light"] .menu-toggle {
+            color: var(--text-primary);
         }
 
         /* Hero Section */
@@ -154,6 +224,44 @@
             box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
         }
 
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            animation: fadeInUp 1s ease 0.6s backwards;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid var(--accent-primary);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(79, 172, 254, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(79, 172, 254, 0.2);
+            transform: translateY(-3px);
+        }
+
         /* Section Styles */
         section {
             padding: 80px 0;
@@ -171,7 +279,7 @@
 
         /* About Section */
         .about {
-            background: #0f1428;
+            background: var(--bg-secondary);
         }
 
         .about-wrapper {
@@ -199,16 +307,146 @@
             flex: 1;
             font-size: 1.1rem;
             line-height: 1.8;
-            color: #e0e0e0;
+            color: var(--text-primary);
         }
 
         .about-content p {
             margin-bottom: 1rem;
         }
 
+        /* Achievements Section */
+        .achievements {
+            background: var(--bg-primary);
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .achievement-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
+            border-color: rgba(79, 172, 254, 0.5);
+        }
+
+        .achievement-card h3 {
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .achievement-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .achievement-photos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .achievement-photos img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid var(--border-color);
+        }
+
+        .achievement-photos img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(79, 172, 254, 0.4);
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .lightbox-close:hover {
+            color: var(--accent-primary);
+        }
+
+        /* Projects Section */
+        .projects {
+            background: var(--bg-secondary);
+            text-align: center;
+        }
+
+        .projects-placeholder {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 2px dashed var(--border-color);
+        }
+
+        .projects-placeholder img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .projects-placeholder h3 {
+            color: var(--accent-primary);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .projects-placeholder p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+
         /* Gallery Section */
         .gallery {
-            background: #0a0e27;
+            background: var(--bg-primary);
         }
 
         .slideshow-container {
@@ -265,14 +503,15 @@
         }
 
         .slide-btn {
-            background: rgba(79, 172, 254, 0.2);
-            color: white;
-            border: 1px solid rgba(79, 172, 254, 0.5);
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
             padding: 0.8rem 2rem;
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s;
             font-size: 1rem;
+            font-weight: 600;
         }
 
         .slide-btn:hover {
@@ -291,19 +530,19 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: rgba(79, 172, 254, 0.3);
+            background: var(--border-color);
             cursor: pointer;
             transition: all 0.3s;
         }
 
         .indicator.active {
-            background: #4facfe;
+            background: var(--accent-primary);
             transform: scale(1.3);
         }
 
         /* Experience Section */
         .experience {
-            background: #0f1428;
+            background: var(--bg-secondary);
         }
 
         .experience-grid {
@@ -313,10 +552,10 @@
         }
 
         .experience-card {
-            background: linear-gradient(135deg, rgba(79, 172, 254, 0.05) 0%, rgba(0, 242, 254, 0.05) 100%);
+            background: var(--card-bg);
             padding: 2rem;
             border-radius: 15px;
-            border: 1px solid rgba(79, 172, 254, 0.2);
+            border: 1px solid var(--border-color);
             transition: all 0.3s;
             backdrop-filter: blur(10px);
         }
@@ -328,14 +567,14 @@
         }
 
         .experience-card h3 {
-            color: #4facfe;
+            color: var(--accent-primary);
             margin-bottom: 0.5rem;
             font-size: 1.4rem;
         }
 
         .experience-card .company {
             font-weight: bold;
-            color: #00f2fe;
+            color: var(--accent-secondary);
             margin-bottom: 0.5rem;
         }
 
@@ -346,12 +585,12 @@
         }
 
         .experience-card p {
-            color: #c0c0c0;
+            color: var(--text-secondary);
         }
 
         /* Skills Section */
         .skills {
-            background: #0a0e27;
+            background: var(--bg-primary);
         }
 
         .skills-container {
@@ -363,12 +602,12 @@
         }
 
         .skill-category {
-            background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.1) 100%);
-            color: white;
+            background: var(--card-bg);
+            color: var(--text-primary);
             padding: 2rem;
             border-radius: 15px;
             text-align: center;
-            border: 1px solid rgba(79, 172, 254, 0.3);
+            border: 1px solid var(--border-color);
             transition: all 0.3s;
         }
 
@@ -380,7 +619,7 @@
         .skill-category h3 {
             margin-bottom: 1rem;
             font-size: 1.3rem;
-            color: #4facfe;
+            color: var(--accent-primary);
         }
 
         .skill-category ul {
@@ -389,8 +628,8 @@
 
         .skill-category li {
             padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(79, 172, 254, 0.2);
-            color: #e0e0e0;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-primary);
         }
 
         .skill-category li:last-child {
@@ -399,7 +638,7 @@
 
         /* Education Section */
         .education {
-            background: #0f1428;
+            background: var(--bg-secondary);
         }
 
         .education-grid {
@@ -409,10 +648,10 @@
         }
 
         .education-card {
-            background: linear-gradient(135deg, rgba(79, 172, 254, 0.05) 0%, rgba(0, 242, 254, 0.05) 100%);
+            background: var(--card-bg);
             padding: 2rem;
             border-radius: 15px;
-            border: 1px solid rgba(79, 172, 254, 0.2);
+            border: 1px solid var(--border-color);
             transition: all 0.3s;
         }
 
@@ -422,18 +661,18 @@
         }
 
         .education-card h3 {
-            color: #4facfe;
+            color: var(--accent-primary);
             margin-bottom: 0.5rem;
         }
 
         .education-card .degree {
             font-weight: bold;
             margin-bottom: 0.5rem;
-            color: #e0e0e0;
+            color: var(--text-primary);
         }
 
         .education-card p {
-            color: #c0c0c0;
+            color: var(--text-secondary);
         }
 
         .education-card .year {
@@ -443,10 +682,10 @@
 
         /* Contact Section */
         .contact {
-            background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.1) 100%);
-            color: white;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             text-align: center;
-            border-top: 1px solid rgba(79, 172, 254, 0.3);
+            border-top: 1px solid var(--border-color);
         }
 
         .contact-info {
@@ -455,6 +694,7 @@
             gap: 3rem;
             margin-top: 2rem;
             flex-wrap: wrap;
+            margin-bottom: 4rem;
         }
 
         .contact-item {
@@ -463,9 +703,9 @@
             align-items: center;
             gap: 0.5rem;
             padding: 1.5rem;
-            background: rgba(79, 172, 254, 0.05);
+            background: var(--card-bg);
             border-radius: 10px;
-            border: 1px solid rgba(79, 172, 254, 0.2);
+            border: 1px solid var(--border-color);
             transition: all 0.3s;
         }
 
@@ -480,23 +720,93 @@
         }
 
         .contact-item a {
-            color: #4facfe;
+            color: var(--accent-primary);
             text-decoration: none;
             font-size: 1.1rem;
             transition: all 0.3s;
         }
 
         .contact-item a:hover {
-            color: #00f2fe;
+            color: var(--accent-secondary);
+        }
+
+        /* Contact Form */
+        .contact-form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-form-container h3 {
+            color: var(--accent-primary);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(79, 172, 254, 0.4);
         }
 
         /* Footer */
         footer {
-            background: #0a0e27;
-            color: white;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
             text-align: center;
             padding: 2rem 0;
-            border-top: 1px solid rgba(79, 172, 254, 0.3);
+            border-top: 1px solid var(--border-color);
         }
 
         /* Animations */
@@ -520,17 +830,27 @@
             }
         }
 
-        /* Mobile Menu */
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
+        /* Scroll animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
         }
 
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsive */
         @media (max-width: 768px) {
+            .theme-toggle {
+                top: 70px;
+                right: 10px;
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
             .nav-links {
                 display: none;
                 position: absolute;
@@ -541,6 +861,11 @@
                 flex-direction: column;
                 padding: 1rem;
                 gap: 1rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            }
+
+            [data-theme="light"] .nav-links {
+                background: rgba(255, 255, 255, 0.98);
             }
 
             .nav-links.active {
@@ -580,10 +905,28 @@
             .contact-info {
                 gap: 1.5rem;
             }
+
+            .achievements-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .achievement-photos {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form-container {
+                padding: 2rem 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" onclick="toggleTheme()">
+        <span id="themeIcon">🌙</span>
+        <span id="themeText">Dark</span>
+    </div>
+
     <!-- Header -->
     <header>
         <nav class="container">
@@ -591,6 +934,8 @@
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#about">About</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#projects">Projects</a></li>
                 <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#skills">Skills</a></li>
@@ -599,6 +944,12 @@
             </ul>
         </nav>
     </header>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img src="" alt="Enlarged view" id="lightboxImg">
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -611,11 +962,15 @@
                 <span class="tag">Cybersecurity Analyst</span>
                 <span class="tag">Financial Advisor</span>
             </div>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                <a href="#achievements" class="btn btn-secondary">View Achievements</a>
+            </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section class="about" id="about">
+    <section class="about scroll-reveal" id="about">
         <div class="container">
             <h2 class="section-title">About Me</h2>
             <div class="about-wrapper">
@@ -630,8 +985,69 @@
         </div>
     </section>
 
+    <!-- Achievements Section -->
+    <section class="achievements scroll-reveal" id="achievements">
+        <div class="container">
+            <h2 class="section-title">Personal Achievements</h2>
+            <div class="achievements-grid">
+                <div class="achievement-card">
+                    <h3>🥈 Second Place - FIRST Global Challenge 2025</h3>
+                    <p><strong>Panama 2025</strong> - In my first year as Chief Technical Trainer, I led Team Kenya to an incredible 2nd place finish globally at the FIRST Global Challenge. This achievement showcases the dedication, innovation, and technical excellence of our team.</p>
+                    <p style="color: var(--accent-primary); font-weight: 600;">Chief Technical Trainer, 2025</p>
+                    <div class="achievement-photos">
+                        <img src="panama1.jpg" alt="Team Kenya 2nd Place" onclick="openLightbox(this.src)">
+                        <img src="panama2.jpg" alt="Certificate and Medal" onclick="openLightbox(this.src)">
+                        <img src="panama3.jpg" alt="Celebrating Success" onclick="openLightbox(this.src)">
+                    </div>
+                </div>
+
+                <div class="achievement-card">
+                    <h3>🥈 Silver Medal - Outstanding Mentor 2025</h3>
+                    <p><strong>Global Recognition</strong> - Awarded the Silver Medal as the 2nd Best Outstanding Mentor Globally at the FIRST Global Challenge 2025. This honor recognizes exceptional dedication to mentoring, technical training, and developing future innovators.</p>
+                    <p style="color: var(--accent-primary); font-weight: 600;">2nd Best Globally, 2025</p>
+                </div>
+
+                <div class="achievement-card">
+                    <h3>🌟 Outstanding Mentor Nomination 2024</h3>
+                    <p><strong>FIRST Global Challenge</strong> - Nominated for the prestigious Global Outstanding Mentor award in 2024, recognizing excellence in technical mentorship and commitment to STEM education.</p>
+                    <p style="color: var(--accent-primary); font-weight: 600;">Nominated, 2024</p>
+                </div>
+
+                <div class="achievement-card">
+                    <h3>🌟 Outstanding Mentor Nomination 2025</h3>
+                    <p><strong>FIRST Global Challenge</strong> - Received a second consecutive nomination for Global Outstanding Mentor in 2025, demonstrating continued excellence and impact in robotics education.</p>
+                    <p style="color: var(--accent-primary); font-weight: 600;">Nominated, 2025</p>
+                </div>
+
+                <div class="achievement-card">
+                    <h3>🥉 Third Place - Most Creative Robot 2023</h3>
+                    <p><strong>Singapore 2023</strong> - As Team Captain, led Team Kenya to win 3rd place for Most Creative Robot at the FIRST Global Challenge, showcasing innovative design and problem-solving skills.</p>
+                    <p style="color: var(--accent-primary); font-weight: 600;">Team Captain, 2023</p>
+                </div>
+
+                <div class="achievement-card">
+                    <h3>🏆 Team Greece 2024</h3>
+                    <p><strong>Technical Mentor</strong> - Successfully mentored and prepared Team Kenya for the FIRST Global Challenge in Athens, Greece, continuing the legacy of excellence in international robotics competition.</p>
+                    <p style="color: var(--accent-primary); font-weight: 600;">Technical Mentor, 2024</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects scroll-reveal" id="projects">
+        <div class="container">
+            <h2 class="section-title">Personal Projects</h2>
+            <div class="projects-placeholder">
+                <img src="construction.gif" alt="Construction animation">
+                <h3>Still in Progress</h3>
+                <p>Exciting projects coming soon! Check back later to see what I'm building.</p>
+            </div>
+        </div>
+    </section>
+
     <!-- Gallery Section -->
-    <section class="gallery" id="gallery">
+    <section class="gallery scroll-reveal" id="gallery">
         <div class="container">
             <h2 class="section-title">Projects & Outreach</h2>
             <div class="slideshow-container">
@@ -676,6 +1092,11 @@
                 </div>
             </div>
 
+            <div class="slide-controls">
+                <button class="slide-btn" onclick="changeSlide(-1)">❮ Previous</button>
+                <button class="slide-btn" onclick="changeSlide(1)">Next ❯</button>
+            </div>
+
             <div class="slide-indicators">
                 <span class="indicator active" onclick="goToSlide(0)"></span>
                 <span class="indicator" onclick="goToSlide(1)"></span>
@@ -687,10 +1108,10 @@
     </section>
 
     <!-- Mentorship Journey Section -->
-    <section class="gallery" id="mentorship" style="background: #0f1428;">
+    <section class="gallery scroll-reveal" id="mentorship" style="background: var(--bg-secondary);">
         <div class="container">
             <h2 class="section-title">My Mentorship Journey</h2>
-            <p style="text-align: center; color: #e0e0e0; margin-bottom: 3rem; font-size: 1.1rem;">From Team Captain to Technical Mentor: Working with talented students from 2023 to 2025</p>
+            <p style="text-align: center; color: var(--text-primary); margin-bottom: 3rem; font-size: 1.1rem;">From Team Captain to Technical Mentor: Working with talented students from 2023 to 2025</p>
             <div class="slideshow-container">
                 <div class="slide active">
                     <img src="mentorship1.jpg" alt="Hands-on robot training">
@@ -773,6 +1194,11 @@
                 </div>
             </div>
 
+            <div class="slide-controls">
+                <button class="slide-btn" onclick="changeSlide2(-1)">❮ Previous</button>
+                <button class="slide-btn" onclick="changeSlide2(1)">Next ❯</button>
+            </div>
+
             <div class="slide-indicators">
                 <span class="indicator active" onclick="goToSlide2(0)"></span>
                 <span class="indicator" onclick="goToSlide2(1)"></span>
@@ -789,37 +1215,44 @@
     </section>
 
     <!-- Media & Recognition Section -->
-    <section class="gallery" id="media" style="background: #0a0e27;">
+    <section class="gallery scroll-reveal" id="media" style="background: var(--bg-primary);">
         <div class="container">
             <h2 class="section-title">Media & Recognition</h2>
-            <p style="text-align: center; color: #e0e0e0; margin-bottom: 3rem; font-size: 1.1rem;">Featured in national media and FIRST Global's official campaign</p>
+            <p style="text-align: center; color: var(--text-primary); margin-bottom: 3rem; font-size: 1.1rem;">Featured in national media and FIRST Global's official campaign</p>
             
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 2rem; max-width: 1100px; margin: 0 auto;">
-                <div style="background: linear-gradient(135deg, rgba(79, 172, 254, 0.05) 0%, rgba(0, 242, 254, 0.05) 100%); padding: 2rem; border-radius: 20px; border: 1px solid rgba(79, 172, 254, 0.3); transition: all 0.3s;">
-                    <img src="media1.jpg" alt="National newspaper feature 2023" style="width: 100%; border-radius: 15px; margin-bottom: 1.5rem; box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);">
-                    <h3 style="color: #4facfe; margin-bottom: 0.5rem; font-size: 1.3rem;">National Newspaper Feature</h3>
-                    <p style="color: #e0e0e0; line-height: 1.6;">Featured in national media coverage for representing Kenya at the FIRST Global Robotics Challenge 2023, highlighting our team's innovative climate solutions and international success.</p>
+                <div style="background: var(--card-bg); padding: 2rem; border-radius: 20px; border: 1px solid var(--border-color); transition: all 0.3s;">
+                    <img src="media1.jpg" alt="National newspaper feature 2023" style="width: 100%; border-radius: 15px; margin-bottom: 1.5rem; box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);" onclick="openLightbox(this.src)">
+                    <h3 style="color: var(--accent-primary); margin-bottom: 0.5rem; font-size: 1.3rem;">National Newspaper Feature</h3>
+                    <p style="color: var(--text-primary); line-height: 1.6;">Featured in national media coverage for representing Kenya at the FIRST Global Robotics Challenge 2023, highlighting our team's innovative climate solutions and international success.</p>
                 </div>
                 
-                <div style="background: linear-gradient(135deg, rgba(79, 172, 254, 0.05) 0%, rgba(0, 242, 254, 0.05) 100%); padding: 2rem; border-radius: 20px; border: 1px solid rgba(79, 172, 254, 0.3); transition: all 0.3s;">
-                    <img src="media2.jpg" alt="FIRST Global official website feature" style="width: 100%; border-radius: 15px; margin-bottom: 1.5rem; box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);">
-                    <h3 style="color: #4facfe; margin-bottom: 0.5rem; font-size: 1.3rem;">FIRST Global Official Campaign</h3>
-                    <p style="color: #e0e0e0; line-height: 1.6;">Featured on FIRST Global's official website as part of the "Robotics Is A Sport" campaign, showcasing Team Kenya's dedication to promoting robotics education worldwide.</p>
+                <div style="background: var(--card-bg); padding: 2rem; border-radius: 20px; border: 1px solid var(--border-color); transition: all 0.3s;">
+                    <img src="media2.jpg" alt="FIRST Global official website feature" style="width: 100%; border-radius: 15px; margin-bottom: 1.5rem; box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);" onclick="openLightbox(this.src)">
+                    <h3 style="color: var(--accent-primary); margin-bottom: 0.5rem; font-size: 1.3rem;">FIRST Global Official Campaign</h3>
+                    <p style="color: var(--text-primary); line-height: 1.6;">Featured on FIRST Global's official website as part of the "Robotics Is A Sport" campaign, showcasing Team Kenya's dedication to promoting robotics education worldwide.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Experience Section -->
-    <section class="experience" id="experience">
+    <section class="experience scroll-reveal" id="experience">
         <div class="container">
             <h2 class="section-title">Experience</h2>
             <div class="experience-grid">
                 <div class="experience-card">
+                    <h3>Chief Technical Trainer</h3>
+                    <div class="company">FIRST Global (IFCA)</div>
+                    <div class="date">June 2024 - Present</div>
+                    <p>Led Team Kenya to 2nd place globally in Panama 2025. Training teams for FIRST Global Robotics Challenge. Awarded Silver Medal as 2nd Best Outstanding Mentor Globally in 2025.</p>
+                </div>
+
+                <div class="experience-card">
                     <h3>Technical Mentor</h3>
                     <div class="company">FIRST Global (IFCA)</div>
                     <div class="date">June 2024 - Present</div>
-                    <p>Training teams for FIRST Global Robotics Challenge. Led a team to Greece in 2024 and currently preparing a team for Panama 2025. Nominated for Global Outstanding Mentor in 2024.</p>
+                    <p>Training teams for FIRST Global Robotics Challenge. Led a team to Greece in 2024. Nominated for Global Outstanding Mentor in 2024 and 2025.</p>
                 </div>
 
                 <div class="experience-card">
@@ -861,7 +1294,7 @@
     </section>
 
     <!-- Skills Section -->
-    <section class="skills" id="skills">
+    <section class="skills scroll-reveal" id="skills">
         <div class="container">
             <h2 class="section-title">Skills & Expertise</h2>
             <div class="skills-container">
@@ -905,7 +1338,7 @@
     </section>
 
     <!-- Education Section -->
-    <section class="education" id="education">
+    <section class="education scroll-reveal" id="education">
         <div class="container">
             <h2 class="section-title">Education</h2>
             <div class="education-grid">
@@ -941,10 +1374,11 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="contact" id="contact">
+    <section class="contact scroll-reveal" id="contact">
         <div class="container">
-            <h2 class="section-title" style="color: white;">Get In Touch</h2>
-            <p style="color: #e0e0e0;">I'm always open to discussing new opportunities, collaborations, or just connecting with fellow innovators.</p>
+            <h2 class="section-title">Get In Touch</h2>
+            <p style="color: var(--text-primary); margin-bottom: 3rem;">I'm always open to discussing new opportunities, collaborations, or just connecting with fellow innovators.</p>
+            
             <div class="contact-info">
                 <div class="contact-item">
                     <span>📧 Email</span>
@@ -964,8 +1398,29 @@
                 </div>
                 <div class="contact-item">
                     <span>📍 Location</span>
-                    <span style="color: #e0e0e0;">Nairobi, Kenya</span>
+                    <span style="color: var(--text-primary);">Nairobi, Kenya</span>
                 </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form-container">
+                <h3>Leave a Message</h3>
+                <form id="contactForm" onsubmit="handleFormSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" name="message" required placeholder="Tell me about your inquiry or just say hello..."></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Send Message</button>
+                </form>
+                <div id="formResponse" style="margin-top: 1rem; text-align: center; display: none;"></div>
             </div>
         </div>
     </section>
@@ -978,17 +1433,61 @@
     </footer>
 
     <script>
-        let currentSlide = 0;
-        let currentSlide2 = 0;
-        let slideInterval;
-        let slideInterval2;
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+            
+            if (body.getAttribute('data-theme') === 'light') {
+                body.removeAttribute('data-theme');
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Dark';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Light';
+                localStorage.setItem('theme', 'light');
+            }
+        }
 
+        // Load saved theme
+        window.addEventListener('load', function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.body.setAttribute('data-theme', 'light');
+                document.getElementById('themeIcon').textContent = '☀️';
+                document.getElementById('themeText').textContent = 'Light';
+            }
+        });
+
+        // Mobile Menu Toggle
         function toggleMenu() {
             const navLinks = document.getElementById('navLinks');
             navLinks.classList.toggle('active');
         }
 
-        // First slideshow functions
+        // Lightbox Functions
+        function openLightbox(src) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            lightboxImg.src = src;
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+        }
+
+        // Slideshow Variables
+        let currentSlide = 0;
+        let currentSlide2 = 0;
+        let slideInterval;
+        let slideInterval2;
+
+        // First Slideshow Functions
         function showSlide(n) {
             const slides = document.querySelectorAll('#gallery .slide');
             const indicators = document.querySelectorAll('#gallery .indicator');
@@ -1029,7 +1528,7 @@
             startSlideTimer();
         }
 
-        // Second slideshow functions
+        // Second Slideshow Functions
         function showSlide2(n) {
             const slides = document.querySelectorAll('#mentorship .slide');
             const indicators = document.querySelectorAll('#mentorship .indicator');
@@ -1070,13 +1569,13 @@
             startSlideTimer2();
         }
 
-        // Start both automatic slideshows when page loads
+        // Start slideshows
         window.addEventListener('load', function() {
             startSlideTimer();
             startSlideTimer2();
         });
 
-        // Smooth scrolling for navigation links
+        // Smooth Scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1091,13 +1590,66 @@
             });
         });
 
-        // Add scroll effect to header
+        // Scroll Animations
+        const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
+        
+        const scrollReveal = () => {
+            scrollRevealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', scrollReveal);
+        scrollReveal(); // Initial check
+
+        // Header Scroll Effect
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
             if (window.scrollY > 50) {
-                header.style.background = 'rgba(10, 14, 39, 0.98)';
+                header.style.boxShadow = '0 2px 30px rgba(79, 172, 254, 0.5)';
             } else {
-                header.style.background = 'rgba(10, 14, 39, 0.95)';
+                header.style.boxShadow = '0 2px 20px rgba(79, 172, 254, 0.3)';
             }
         });
+
+        // Contact Form Handler
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const form = document.getElementById('contactForm');
+            const formResponse = document.getElementById('formResponse');
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // Display success message
+            formResponse.style.display = 'block';
+            formResponse.style.color = 'var(--accent-primary)';
+            formResponse.textContent = `Thank you, ${name}! Your message has been received. I'll get back to you at ${email} soon.`;
+            
+            // Save to localStorage (for demo purposes)
+            const messages = JSON.parse(localStorage.getItem('contactMessages') || '[]');
+            messages.push({
+                name: name,
+                email: email,
+                message: message,
+                date: new Date().toISOString()
+            });
+            localStorage.setItem('contactMessages', JSON.stringify(messages));
+            
+            // Reset form
+            form.reset();
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                formResponse.style.display = 'none';
+            }, 5000);
+        }
     </script>
+</body>
+</html>
