@@ -371,6 +371,50 @@ img {
   object-position: top;
 }
 
+/* ---------- more projects (under construction) ---------- */
+
+.more-projects {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-top: 48px;
+  padding: 24px 28px;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+}
+
+.more-projects img {
+  width: 96px;
+  height: 96px;
+  flex-shrink: 0;
+}
+
+.more-projects h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.more-projects p {
+  color: var(--muted);
+  font-size: 0.975rem;
+  max-width: 44em;
+}
+
+@media (max-width: 560px) {
+  .more-projects {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+  }
+
+  .more-projects img {
+    width: 72px;
+    height: 72px;
+  }
+}
+
 /* ---------- timeline ---------- */
 
 .timeline {
