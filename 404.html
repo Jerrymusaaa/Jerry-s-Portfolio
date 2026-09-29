@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page not found — Jerry Musa</title>
+  <meta name="robots" content="noindex">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      var stored = localStorage.getItem('theme');
+      var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+    })();
+  </script>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fcfcfb; --text: #1d211e; --muted: #5c625d;
+      --border: #e6e5df; --accent-dark: #14522c; --btn-bg: #1d211e;
+      color-scheme: light;
+    }
+    [data-theme="dark"] {
+      --bg: #141614; --text: #e6e8e4; --muted: #a3a89f;
+      --border: #2b2f2b; --accent-dark: #7fcc9d; --btn-bg: #e6e8e4;
+      color-scheme: dark;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: "Hanken Grotesk", system-ui, sans-serif;
+      background: var(--bg); color: var(--text);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    .card { max-width: 420px; }
+    .code { font-size: 3rem; font-weight: 700; letter-spacing: -0.02em; }
+    h1 { font-size: 1.25rem; font-weight: 600; margin: 8px 0 12px; }
+    p { color: var(--muted); line-height: 1.6; margin-bottom: 24px; }
+    a.back {
+      display: inline-block; padding: 10px 22px; border-radius: 6px;
+      background: var(--btn-bg); color: var(--bg);
+      font-weight: 600; text-decoration: none; font-size: 0.975rem;
+    }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="code">404</div>
+    <h1>Page not found</h1>
+    <p>That link doesn't lead anywhere. Head back to the portfolio for the real content — projects, FIRST Global record, and contact details.</p>
+    <a class="back" href="/">Back to the portfolio</a>
+  </main>
+</body>
+</html>

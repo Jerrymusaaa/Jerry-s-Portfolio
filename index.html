@@ -576,10 +576,12 @@
           <li><span>Location</span><span>Nairobi, Kenya</span></li>
         </ul>
 
-        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contact-form" class="contact-form">
-          <input type="hidden" name="form-name" value="contact">
+        <form id="contact-form" class="contact-form">
+          <input type="hidden" name="_subject" value="New message from the portfolio">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
           <p class="hp-field">
-            <label>Don't fill this out if you're human: <input name="bot-field"></label>
+            <label>Don't fill this out if you're human: <input name="_honey"></label>
           </p>
           <div class="form-row">
             <div class="form-field">

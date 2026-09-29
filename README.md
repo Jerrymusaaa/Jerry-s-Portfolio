@@ -2,7 +2,7 @@
 
 Static portfolio for Yonaura Jerry Musa: robotics mentor, STEM educator, and
 chief technical trainer of Team Kenya at the FIRST Global Challenge
-(2nd place worldwide, Panama 2025).
+(2nd place worldwide, Panama 2025). CEO & founder of Yoyzie AI.
 
 One page, no build step, no framework. Plain HTML, CSS, and JavaScript.
 
@@ -12,8 +12,9 @@ One page, no build step, no framework. Plain HTML, CSS, and JavaScript.
 |------|------------|
 | `index.html` | The whole page — semantic HTML, one `<dialog>`-based lightbox |
 | `styles.css` | Editorial theme, light + dark, single green accent, Hanken Grotesk |
-| `main.js` | Theme toggle, mobile nav, lightbox, Netlify form (~140 lines) |
-| `netlify.toml` | Publish dir + cache/security headers |
+| `main.js` | Theme toggle, mobile nav, lightbox, contact form (~150 lines) |
+| `vercel.json` | Cache + security headers for Vercel |
+| `404.html` | Not-found page, same theme |
 | `yoyzie-*.jpg` | Screenshots of the Yoyzie AI landing page (live site) |
 | `*.jpg` | Photos (originals, untouched) |
 
@@ -36,15 +37,15 @@ These come from the project skills (`no-slop-ui`, `frontend-design`,
 - Theme is applied before first paint (no flash); `color-scheme` is set so
   native controls (scrollbars, form fields) follow the theme too
 
-## Reading contact form messages
+## Contact form messages
 
-The form is a Netlify Form (`data-netlify="true"`). After the site is
-redeployed, every submission lands in the Netlify dashboard:
+The form posts to **FormSubmit**, which emails every submission to
+`yo.jerrymusa2018@gmail.com` — no dashboard needed, messages arrive in Gmail
+with the sender's name, email, and message.
 
-1. Open **app.netlify.com** → your site → **Forms** → `contact`
-2. Submissions show name, email, message, and timestamp
-3. Under **Form settings → Form notifications** you can add an email
-   address to get each message by email, or an RSS/Slack notification
+One-time setup after the first deploy: submit a test message on the live site.
+FormSubmit sends an **activation email** to that address — click the link in
+it once, and all future messages deliver automatically.
 
 ## Running locally
 
@@ -55,14 +56,16 @@ python3 -m http.server 8080
 
 Then open http://localhost:8080.
 
-## Deploying on Netlify
+## Deploying on Vercel
 
-The site is already wired for Netlify:
+The repo is ready as-is — it's a static site with no build step.
 
-1. Push this repo to GitHub (`git push`).
-2. Netlify reads `netlify.toml` — publish directory is the repo root, no build
-   command needed.
-3. The contact form uses Netlify Forms (`data-netlify="true"`). After the first
-   deploy, submissions appear under **Forms** in the Netlify dashboard.
-
-Note: Netlify Forms only activates after the first deploy with the form present.
+1. Go to **vercel.com/new** and import the `Jerrymusaaa/Jerry-s-Portfolio`
+   GitHub repo (or run `npx vercel` from this folder and follow the prompts).
+2. Leave all build settings at their defaults — Vercel auto-detects "Other"
+   (static) and serves the repo root. `vercel.json` adds caching and security
+   headers automatically.
+3. Deploy. Every later `git push` to `main` redeploys automatically.
+4. After deploying, do the one-time FormSubmit activation from a test message
+   (see "Contact form messages" above).
+5. Optional: add your custom domain under **Settings → Domains**.

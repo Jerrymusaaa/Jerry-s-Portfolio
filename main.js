@@ -96,7 +96,10 @@
     });
   }
 
-  // --- Contact form (Netlify) -------------------------------------------------
+  // --- Contact form (FormSubmit → email) --------------------------------------
+  // Messages are delivered to yo.jerrymusa2018@gmail.com. The very first
+  // submission after deploying triggers a one-time activation email —
+  // click the link in it and delivery starts.
 
   var form = document.getElementById("contact-form");
   var status = document.getElementById("form-status");
@@ -104,21 +107,30 @@
   if (form && status) {
     form.addEventListener("submit", function (event) {
       event.preventDefault();
-      var data = new FormData(form);
+      var submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
 
-      fetch("/", {
+      fetch("https://formsubmit.co/ajax/yo.jerrymusa2018@gmail.com", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(data).toString()
+        headers: { Accept: "application/json" },
+        body: new FormData(form)
       })
-        .then(function () {
-          status.textContent = "Thanks — your message has been sent. I'll reply by email.";
-          status.className = "form-status is-success";
-          form.reset();
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (data.success === "true" || data.success === true) {
+            status.textContent = "Thanks — your message has been sent. I'll reply by email.";
+            status.className = "form-status is-success";
+            form.reset();
+          } else {
+            throw new Error("rejected");
+          }
         })
         .catch(function () {
           status.textContent = "Something went wrong. Email me directly at yo.jerrymusa2018@gmail.com.";
           status.className = "form-status is-error";
+        })
+        .finally(function () {
+          if (submitBtn) submitBtn.disabled = false;
         });
     });
   }
